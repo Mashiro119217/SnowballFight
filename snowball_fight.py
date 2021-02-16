@@ -100,6 +100,7 @@ class GameLayer(cocos.layer.Layer):
                 self.remove(node)
         self.collide(PlayerShoot.INSTANCE)
         if self.collide(self.player):
+            self.respawn_player()
 
         for _, node in self.children:
             node.update(dt)
