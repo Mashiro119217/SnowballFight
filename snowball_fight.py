@@ -4,6 +4,7 @@
 #license: MIT
 
 
+import random
 
 
 from cocos.director import director
@@ -98,10 +99,13 @@ class GameLayer(cocos.layer.Layer):
             if not self.collman.knows(node):
                 self.remove(node)
         self.collide(PlayerShoot.INSTANCE)
-
+        if self.collide(self.player):
 
         for _, node in self.children:
             node.update(dt)
+
+        if random.random() < 0.01:
+            self.add(Shoot(200, 320))
 
 
 
@@ -159,6 +163,10 @@ class PlayerShoot(Shoot):
             other.kill()
             self.kill()
             director.replace(SplitColsTransition(game_over()))
+        if isinstance(other, Shoot):
+            other.kill()
+            self.kill()
+
 
 
     def on_exit(self):
@@ -203,7 +211,7 @@ def game_over():
 
 
 if __name__ == '__main__':
-    ver = "v0.1"
+    ver = "v0.2"
     cocos.director.director.init(caption='雪仗打起來 '+ ver,
                                  width=800, height=650)
     main_scene = cocos.scene.Scene()
