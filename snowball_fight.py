@@ -17,6 +17,9 @@ import cocos.sprite
 import cocos.collision_model as cm
 import cocos.euclid as eu
 
+import pyglet.image
+
+
 
 class Actor(cocos.sprite.Sprite):
     def __init__(self, image, x, y):
@@ -41,7 +44,9 @@ class PlayerCannon(Actor):
     KEYS_PRESSED = defaultdict(int)
 
     def __init__(self, x, y):
-        super(PlayerCannon, self).__init__('1229.gif', x, y)
+        super(PlayerCannon, self).__init__('1213 2.gif', x, y)
+        self.image = pyglet.image.load_animation('1213 2.gif')
+
 
         self.speed = eu.Vector2(200, 0)
 
@@ -128,7 +133,8 @@ class GameLayer(cocos.layer.Layer):
 
 class Alien(Actor):
     def __init__(self, x, y):
-        super(Alien, self).__init__('1229.gif', x, y)
+        super(Alien, self).__init__('1213.gif', x, y)
+        self.image = pyglet.image.load_animation('1213.gif')
         self.speed = eu.Vector2(200, 0)
 
     def update(self, elapsed):
@@ -142,7 +148,7 @@ class Alien(Actor):
 
 
 class Shoot(Actor):
-    def __init__(self, x, y, img='shoot.png'):
+    def __init__(self, x, y, img='1213 snowball.gif'):
         super(Shoot, self).__init__(img, x, y)
         self.speed = eu.Vector2(200, 0)
 
@@ -154,7 +160,7 @@ class PlayerShoot(Shoot):
     INSTANCE = None
 
     def __init__(self, x, y):
-        super(PlayerShoot, self).__init__(x, y, 'laser.png')
+        super(PlayerShoot, self).__init__(x, y, '1213 snowball.gif')
         self.speed *= -1
         PlayerShoot.INSTANCE = self
 
@@ -212,7 +218,7 @@ def game_over():
 
 
 if __name__ == '__main__':
-    ver = "v0.2"
+    ver = "v0.3"
     cocos.director.director.init(caption='雪仗打起來 '+ ver,
                                  width=800, height=650)
     main_scene = cocos.scene.Scene()
